@@ -1,14 +1,16 @@
 package com.example.thelastversionofprm;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.view.View.OnClickListener;
+import android.widget.EditText;
 
 import com.example.thelastversionofprm.Utility.BottomNavigationViewHelper;
 import com.flask.colorpicker.ColorPickerView;
@@ -16,6 +18,9 @@ import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class SettringActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -26,22 +31,33 @@ public class SettringActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_setting);
         Log.d(TAG, "onCreate: started");
 
-        Button button = (Button) findViewById(R.id.changeColor);
-
+        Button button = findViewById(R.id.changeColor);
+        Button buttonChangeText = findViewById(R.id.changeRadius);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 changeColor();
             }
         });
-
+        buttonChangeText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSize();
+            }
+        });
 //        setupBottomNavigationView();
     }
 
     private void setupBottomNavigationView() {
         Log.d(TAG, "setupBottomNavigationView: setting bottomNaviView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavigationView);
+        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigationView);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(SettringActivity.this, bottomNavigationViewEx);
+    }
+    private void changeSize(){
+     EditText rad = findViewById(R.id.radius);
+
+     writeToFile(rad.getText().toString(),getApplicationContext(),"sizeSet.txt");
+
     }
 
     private void changeColor() {
@@ -61,6 +77,10 @@ public class SettringActivity extends AppCompatActivity implements AdapterView.O
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                         //TODO
                         //selectedColor;
+
+
+                        writeToFile(String.valueOf(selectedColor),getApplicationContext(),"colorSet.txt");
+
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -80,5 +100,17 @@ public class SettringActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+//"colorSet.txt
+    private void writeToFile(String data,Context context,String filePath) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filePath, Context.MODE_PRIVATE));
+            outputStreamWriter.write(String.valueOf(data));
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 }
