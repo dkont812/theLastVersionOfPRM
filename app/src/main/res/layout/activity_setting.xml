@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/toolbar"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,14 +46,7 @@
 
 
 
-    <Button
-        android:id="@+id/changeColor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:textSize="20sp"
-        android:text="change color"
-        tools:ignore="MissingConstraints" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +59,9 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/radius" android:hint="Radius"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/radius" android:hint="Text size"
+        tools:ignore="MissingConstraints"
+        />
 
     <Button
         android:id="@+id/changeRadius"
@@ -72,13 +69,23 @@
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:textSize="20sp"
-        android:text="Radius"
+        android:text="Text Size"
         tools:ignore="MissingConstraints" />
 
-
+    <Button
+        android:id="@+id/changeColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:textSize="20sp"
+        android:text="change color"
+        tools:ignore="MissingConstraints" />
     <Spinner
         android:id="@+id/textSizeSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
-</android.support.constraint.ConstraintLayout>
+
+
+
+</LinearLayout>
